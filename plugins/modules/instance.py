@@ -1089,7 +1089,10 @@ class LinodeInstance(LinodeModuleBase):
             if key == "interfaces":
                 old_value = filter_null_values_recursive(
                     [
-                        drop_empty_strings(v._serialize(), recursive=True)
+                        drop_empty_strings(
+                            v._serialize() if hasattr(v, "_serialize") else v,
+                            recursive=True,
+                        )
                         for v in old_value
                     ]
                 )
